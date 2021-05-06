@@ -19,7 +19,7 @@ class UserController {
     }
 
     findAll = (req, res) => {
-        userService.getAllData( (error, success) => {
+        userService.getAllData((error, success) => {
             if (error) {
                 response.success = false;
                 response.message = error.message;
