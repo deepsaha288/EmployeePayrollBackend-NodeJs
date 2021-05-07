@@ -19,5 +19,16 @@ class UserService {
             }
         })
     }
+    deleteEmployeeData = (req) => {
+        return model.deleteData(req.params.id).then(result => {
+            if (!result) {
+                return ({ message: "data not found !" + req.params.id })
+            }
+            return ({ message: "Employee data deleted Successfully!", data: result });
+        }).catch(err => {
+            return ({ message: "Failed to delete data!", error: err });
+        })
+    }
 }
+
 module.exports = new UserService();
