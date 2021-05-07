@@ -1,11 +1,11 @@
 const mongoose = require("mongoose");
 const userSchema = new mongoose.Schema({
 
-    firstname: {
+    firstName: {
         type: String,
         required: true
     },
-    lastname: {
+    lastName: {
         type: String,
         required: true
     },
@@ -29,9 +29,8 @@ const userSchema = new mongoose.Schema({
         type: String,
         enum: ['HR', 'Sales', 'Finance', 'Engineer', 'Others'],
         message: '{VALUE} is not supported'
-    },
-        timestamps:true
-});
+    }
+},{  timestamps:true});
 let users = mongoose.model('users', userSchema);
 
 class UserModel {

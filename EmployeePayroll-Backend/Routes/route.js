@@ -3,7 +3,7 @@ const userController = require('../Controller/userController');
 const validator = require('../Middleware/validator');
 
 
-route.post('/employee', validator.register, validator.validateResult, userController.addEmployeeController);
+route.post('/employee',  userController.addEmployeeController);
 
 route.get('/employee', userController.findAll);
 
