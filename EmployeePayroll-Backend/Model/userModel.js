@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
 let users = mongoose.model('users', userSchema);
 
 class UserModel {
-    userCreate(obj, callback) {
+    createUserData(obj, callback) {
         users.create(obj, (error, success) => {
             if (error) {
                 callback(error)
@@ -45,7 +45,7 @@ class UserModel {
         })
     }
 
-    retrieveData(callback) {
+    retrieveUserData(callback) {
         users.find((error, success) => {
             if (error) {
                 callback(error)
@@ -54,15 +54,26 @@ class UserModel {
             }
         })
     }
-    deleteData = (req) =>{
-        return new Promise((resolve, reject) =>{
-            users.findByIdAndDelete(req).then(result =>{
+    deleteUserData = (req) => {
+        return new Promise((resolve, reject) => {
+            users.findByIdAndDelete(req).then(result => {
                 resolve(result)
-            }).catch(err =>{
+            }).catch(err => {
                 reject(err)
             })
         })
     }
-  
+    updateUserData = (req, id) => {
+        return new Promise((resolve, reject) => {
+            users.findByIdAndUpdate(id, req, { new: true })
+                .then(result => {
+                    resolve(result)
+                    console.log("find the data successfully", result);
+                }).catch(err => {
+                    reject(err)
+                })
+        })
+    }
+
 }
 module.exports = new UserModel();

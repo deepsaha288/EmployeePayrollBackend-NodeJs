@@ -2,8 +2,8 @@ const response = {}
 const userService = require("../Service/userService");
 
 class UserController {
-    addEmployeeController = (req, res) => {
-        userService.addEmployeeService(req.body, (error, success) => {
+    createEmployeeController = (req, res) => {
+        userService.createEmployeeDataService(req.body, (error, success) => {
             if (error) {
                 response.success = false;
                 response.message = error.message;
@@ -18,8 +18,8 @@ class UserController {
         })
     }
 
-    findAll = (req, res) => {
-        userService.getAllData((error, success) => {
+    getEmplyeeController = (req, res) => {
+        userService.getEmployeeDataService((error, success) => {
             if (error) {
                 response.success = false;
                 response.message = error.message;
@@ -33,15 +33,15 @@ class UserController {
             }
         })
     }
-    deleteEmployee = (req,res,next) =>{
+    deleteEmployeeController = (req, res, next) => {
         try {
-            userService.deleteEmployeeData(req).then((result)=>{
+            userService.deleteEmployeeDataService(req).then((result) => {
                 console.log(result);
                 response.success = true;
                 response.message = result.message;
                 response.data = result.data;
                 return res.status(200).send(response);
-            }).catch((err)=>{
+            }).catch((err) => {
                 response.success = false;
                 response.message = err.message;
                 response.data = err.error;
@@ -50,6 +50,22 @@ class UserController {
         } catch (error) {
             next(error);
         }
+    }
+    updateEmployeeController = (req, res) => {
+        userService.updateEmployeeDataService(req, req.body)
+            .then(result => {
+                console.log(result);
+                response.success = true;
+                response.message = "updated successfully";
+                response.data = result.data;
+                return res.status(200).send(response);
+            }).catch((err) => {
+                response.success = false;
+                response.message = "invalid data to update";
+                response.data = err.error;
+                return res.status(400).send(response);
+            })
+
     }
 }
 module.exports = new UserController();
