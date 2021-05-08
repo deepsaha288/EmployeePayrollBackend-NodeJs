@@ -3,38 +3,39 @@ const userSchema = new mongoose.Schema({
 
     firstName: {
         type: String,
-        required: true
+        required: [true, 'First name is compulsory']
     },
     lastName: {
         type: String,
-        required: true
+        required: [true, 'Last  name is compulsory']
     },
-    gender:{
+    gender: {
         type: String,
-        enum:['male','female']
+        enum: ['male', 'female']
     },
     emailId: {
         type: String,
-        unique: true
+        unique: [true, 'Email ID is compulsory'],
     },
     phoneNumber: {
         type: Number,
-        required: true
+        required: [true, 'Mobile number is compulsory']
     },
     salary: {
         type: Number,
-        required: true
+        required: [true, 'salary  is compulsory']
     },
     department: {
         type: String,
         enum: ['HR', 'Sales', 'Finance', 'Engineer', 'Others'],
-        message: '{VALUE} is not supported'
     }
-},{  timestamps:true});
+}, { timestamps: true });
+
+
 let users = mongoose.model('users', userSchema);
 
 class UserModel {
-    userCreate(obj, callback) {
+    createUserData(obj, callback) {
         users.create(obj, (error, success) => {
             if (error) {
                 callback(error)
@@ -44,13 +45,33 @@ class UserModel {
         })
     }
 
-    retrieveData(callback) {
+    retrieveUserData(callback) {
         users.find((error, success) => {
             if (error) {
                 callback(error)
             } else {
                 callback(null, success)
             }
+        })
+    }
+    deleteUserData = (req) => {
+        return new Promise((resolve, reject) => {
+            users.findByIdAndDelete(req).then(result => {
+                resolve(result)
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    }
+    updateUserData = (req, id) => {
+        return new Promise((resolve, reject) => {
+            users.findByIdAndUpdate(id, req, { new: true })
+                .then(result => {
+                    resolve(result)
+                    console.log("find the data successfully", result);
+                }).catch(err => {
+                    reject(err)
+                })
         })
     }
 

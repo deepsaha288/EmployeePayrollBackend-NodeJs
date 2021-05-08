@@ -3,8 +3,8 @@ const userController = require('../Controller/userController');
 const validator = require('../Middleware/validator');
 
 
-route.post('/employee',  userController.addEmployeeController);
-
-route.get('/employee', userController.findAll);
-
+route.post('/employee', userController.createEmployeeController);
+route.get('/employee', userController.getEmplyeeController);
+route.delete('/employee/:id', userController.deleteEmployeeController);
+route.put('/employee/:id', userController.updateEmployeeController);
 module.exports = route;
