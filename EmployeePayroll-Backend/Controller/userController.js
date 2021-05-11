@@ -65,7 +65,21 @@ class UserController {
                 response.data = err.error;
                 return res.status(400).send(response);
             })
-
+    }
+    getEmployeeListOne =(req,res)=>{
+        userService.getEmployeeServiceOne(req.params.id)
+        .then((result)=>{
+            console.log(result);
+            response.success = true;
+            response.message = " successfully find id ";
+            response.data = result.data;
+            return res.status(200).send(response);
+        }).catch((err)=>{
+            response.success = false;
+            response.message = "not find any particular id";
+            response.data = err.error;
+            return res.status(400).send(response);
+        })
     }
 }
 module.exports = new UserController();

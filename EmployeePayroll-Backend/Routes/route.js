@@ -7,4 +7,5 @@ route.post('/employee', userController.createEmployeeController);
 route.get('/employee', userController.getEmplyeeController);
 route.delete('/employee/:id', userController.deleteEmployeeController);
 route.put('/employee/:id', userController.updateEmployeeController);
+route.get('/employee/:id',userController.getEmployeeListOne);
 module.exports = route;

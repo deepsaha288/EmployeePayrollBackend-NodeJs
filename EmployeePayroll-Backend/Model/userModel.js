@@ -74,6 +74,17 @@ class UserModel {
                 })
         })
     }
+    userDataSingle =(id)=>{
+        return new Promise((resolve,reject)=>{
+            users.findById(id).then((result)=>{
+                resolve(result);
+                console.log("get data successfully by id ",result);
+            }).catch((err)=>{
+                console.log(err);
+                reject(err);
+            })
+        })
+    }
 
 }
 module.exports = new UserModel();
