@@ -29,17 +29,23 @@ class UserService {
             return ({ message: "Failed to delete data!", error: err });
         })
     }
-    updateEmployeeDataService = (req, reqUpdate) => {
-        let empData = {
-            "firstname": reqUpdate.firstname,
-            "lastname": reqUpdate.lastname
-        }
-        return model.updateUserData(empData, req.params.id)
+    updateEmployeeDataService = (obj) => {
+    
+
+        return model.updateUserData(obj.body, obj.params.id)
             .then(result => {
                 return ({ message: "successfully updated data", data: result });
             }).catch(err => {
                 return ({ message: "fail to update", error: err });
             })
+    }
+    getEmployeeServiceOne=(req)=>{
+        return model.userDataSingle(req)
+        .then((result)=>{
+            return ({message:"find successfully by single id ",data:result}) 
+        }).catch((err)=>{
+            return ({message:"could't find any id ",error:err})
+        })
     }
 }
 
